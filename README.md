@@ -91,7 +91,9 @@ The **Darts** framework was utilized to provide a clean, production-ready interf
 
 ### 3. Multi-Horizon Forecasting Strategy
 
-We employed a **Direct Multi-step Forecasting** approach:
+- **GRU vs. LSTM Comparison**: I performed a preliminary comparison between the GRU and LSTM architectures. The Gated Recurrent Unit (GRU) was chosen because it offered comparable prediction accuracy (MAPE scores) to the more complex LSTM but achieved faster convergence and required fewer trainable parameters. This prioritized model efficiency and simplicity for the final production baseline.
+
+**Forecasting Strategy (Direct Multi-step)**: I employed a **Direct Multi-step Forecasting** approach:
 
 * **Single Model Training:** Only **one** GRU model was trained.
 * **Unified Output:** The model was configured with an `output_chunk_length` of **21** (the longest required horizon).
