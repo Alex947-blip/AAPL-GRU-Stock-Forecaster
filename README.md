@@ -35,20 +35,20 @@ AAPL_Forecast_Project/
 To run this project locally, you must have **Python 3.8+** and a PowerShell environment (standard on Windows) or access to the respective PowerShell Core tools on other platforms.
 
 1.  **Clone the Repository:**
-    ```
+    ```bash
     git clone [https://github.com/HenryMorganDibie/AAPL-GRU-Stock-Forecaster.git](https://github.com/HenryMorganDibie/AAPL-GRU-Stock-Forecaster.git)
     cd AAPL_Forecast_Project
     ```
 
 2.  **Set up the Environment:**
-    ```
+    ```bash
     python -m venv .venv
     .\.venv\Scripts\activate  # Windows
     # source .venv/bin/activate  # macOS/Linux
     ```
 
 3.  **Install Dependencies:**
-    ```
+    ```bash
     pip install -r requirements.txt
     ```
 
@@ -58,27 +58,56 @@ To run this project locally, you must have **Python 3.8+** and a PowerShell envi
 
 This section details the choices made regarding the data structure, model architecture, and multi-horizon forecasting strategy, fulfilling the requirement for technical justification.
 
-### 1. Data Structure and Darts Integration
+### 1. Feature Engineering and Rationale
 
-* **Feature Choice (Univariate):** The model is based solely on the historical **Close price**. This *univariate* approach was chosen to establish a strong performance baseline, minimizing complexity before integrating noisy technical or external indicators (exogenous variables).
-* **Darts Framework:** We utilize the **Darts** framework primarily because it provides a clean, unified interface for PyTorch-based Time Series models. Key Darts classes used are:
-    * `TimeSeries.from_dataframe()`: Ensures the data index is a correct `DatetimeIndex` with a business-day frequency (`freq='B'`).
-    * `Scaler`: Manages data normalization and inverse transformation automatically, crucial for neural networks.
-    * `RNNModel` (GRU variant): Simplifies the training loop, checkpointing, and evaluation compared to native PyTorch.
+The project focuses on **univariate time series forecasting**, using only historical closing prices for prediction.
 
-### 2. Model Architecture and Horizon Strategy
+| Feature | Type | Rationale |
+| :--- | :--- | :--- |
+| **Close Price (Input)** | Univariate | Primary target variable and input feature. Establishes a strong *autoregressive* baseline using only past price movements. |
+| **Open, High, Low, Volume** | Ignored | Excluded to minimize noise and complexity. Future work can incorporate these as **covariates** for improved trend capture. |
 
-* **GRU vs. LSTM:** The **Gated Recurrent Unit (GRU)** architecture was chosen over the more complex Long Short-Term Memory (LSTM) due to its **efficiency and simplicity**. Preliminary testing indicated that the GRU provided comparable performance on this univariate data but achieved **faster convergence** with **fewer trainable parameters**, making it ideal for a deployable baseline.
-* **Forecasting Strategy (Direct Multi-Step):** The model is designed to handle multiple horizons (1-day, 1-week, 1-month) simultaneously using a **Direct Multi-step Forecasting** approach.
-    * **Input Chunk Length:** 30 business days.
-    * **Output Chunk Length:** 21 business days (the length of the longest horizon).
-    * The model is trained once to predict **21 future steps**. We then evaluate the performance at the 1st step (1-day), the 5th step (1-week), and the 21st step (1-month). This unified approach is computationally efficient and maintains temporal consistency.
+### 2. Darts Framework and Model Implementation
 
-### 3. Data Splitting
+The **Darts** framework was utilized to provide a clean, production-ready interface for deep learning time series models:
 
-The project employs a strict time-series split to prevent **look-ahead leakage**:
-* **Train Set:** Data from **2015-01-01** up to the start of the validation period.
-* **Validation Set:** The **last 252 trading days** (approximately one year of trading data) is reserved for validation and final performance evaluation. The evaluation plots (in the notebook) compare predictions only on this unseen future data.
+* **Data Preparation:** The `TimeSeries` object handles data indexing and frequency (`freq='B'`) automatically.
+    ```python
+    from darts import TimeSeries
+    # Creates Darts object with DatetimeIndex
+    series = TimeSeries.from_dataframe(series_df, freq='B') 
+    ```
+* **Model Instantiation:** The core model is an implementation of the **RNNModel** class from Darts, set to use the GRU architecture.
+    ```python
+    from darts.models import RNNModel
+    # Model uses 30 days of input to predict 21 days out
+    model = RNNModel(
+        model='GRU', 
+        input_chunk_length=30, 
+        output_chunk_length=21, # Multi-step prediction length
+        n_epochs=200
+    )
+    ```
+
+### 3. Multi-Horizon Forecasting Strategy
+
+We employed a **Direct Multi-step Forecasting** approach:
+
+* **Single Model Training:** Only **one** GRU model was trained.
+* **Unified Output:** The model was configured with an `output_chunk_length` of **21** (the longest required horizon).
+* **Evaluation:** The single 21-day forecast vector generated by the model is evaluated at three distinct time steps:
+    * **1 Day Ahead** (Index 0 of the forecast vector)
+    * **1 Week Ahead (5 Days)** (Index 4 of the forecast vector)
+    * **1 Month Ahead (21 Days)** (Index 20 of the forecast vector)
+* **Rationale:** This method ensures temporal consistency across all horizons and avoids the computational cost of training multiple models.
+
+### 4. Data Splitting and Validation
+
+* **Time-Based Split:** A strictly **chronological split** was used to prevent **look-ahead bias** (data leakage).
+* **Split Ratios:** The overall dataset (2015-present) was split as follows:
+    * **Train Set:** All data up to approximately **2 years before the current date**.
+    * **Validation Set:** The **final 252 trading days** (approx. 1 year) of data, used for final metric reporting.
+* This approach isolates the validation set to ensure the model is evaluated only on future data it has never observed.
 
 ---
 
