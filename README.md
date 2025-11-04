@@ -35,20 +35,20 @@ AAPL_Forecast_Project/
 To run this project locally, you must have **Python 3.8+** and a PowerShell environment (standard on Windows) or access to the respective PowerShell Core tools on other platforms.
 
 1.  **Clone the Repository:**
-    ```bash
+    ```
     git clone [https://github.com/HenryMorganDibie/AAPL-GRU-Stock-Forecaster.git](https://github.com/HenryMorganDibie/AAPL-GRU-Stock-Forecaster.git)
     cd AAPL_Forecast_Project
     ```
 
 2.  **Set up the Environment:**
-    ```bash
+    ```
     python -m venv .venv
     .\.venv\Scripts\activate  # Windows
     # source .venv/bin/activate  # macOS/Linux
     ```
 
 3.  **Install Dependencies:**
-    ```bash
+    ```
     pip install -r requirements.txt
     ```
 
